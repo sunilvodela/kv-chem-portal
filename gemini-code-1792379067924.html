@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KV DRDO Kanchanbagh • Class XII Chem Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Client-Side Infographic PDF Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F1F5F9;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+                radial-gradient(at 90% 20%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+                radial-gradient(at 50% 80%, rgba(245, 158, 11, 0.06) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+        }
+
+        .glass-card-glow {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.12);
+        }
+
+        .modal-backdrop {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+        }
+
+        @keyframes gold-pulse {
+            0%, 100% { box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+            50% { box-shadow: 0 0 18px rgba(245, 158, 11, 0.8); }
+        }
+        .podium-glow { animation: gold-pulse 2s infinite; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F1F5F9; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+    </style>
+</head>
+<body class="text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Global Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-500 to-indigo-600 p-0.5 shadow-md shadow-emerald-500/10">
+                    <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center font-black text-emerald-600 text-xl">
+                        🧪
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-base font-black tracking-tight text-slate-900 uppercase">KV DRDO Kanchanbagh</h1>
+                        <span class="bg-emerald-100 text-emerald-800 text-[9px] font-extrabold px-2.5 py-0.5 rounded-full border border-emerald-300">CLASS XII CHEM</span>
+                    </div>
+                    <p class="text-slate-500 text-[11px] font-medium">Academic Progress & Podium Reward Engine</p>
+                </div>
+            </div>
+
+            <!-- Mode Switcher -->
+            <div class="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200 shadow-inner">
+                <button id="btnStudentView" onclick="switchView('student')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-emerald-600 text-white shadow-md shadow-emerald-600/20">
+                    <i class="fa-solid fa-graduation-cap"></i> Student Portal
+                </button>
+                <button id="btnTeacherView" onclick="switchView('teacher')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 text-slate-600 hover:text-slate-900">
+                    <i class="fa-solid fa-lock"></i> Teacher Control
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN BODY CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full space-y-6">
+
+        <!-- STUDENT PORTAL VIEW -->
+        <div id="studentPortalView" class="space-y-6">
+            
+            <div class="relative overflow-hidden rounded-3xl p-6 glass-card-glow flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-2 bg-amber-50 border border-amber-300 px-3 py-1 rounded-full text-[10px] font-extrabold text-amber-800 uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-fire text-amber-500"></i> Term Leaderboard Active
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">⚡ Lock In. Climb the Podium.</h2>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed">
+                        Top early submitters earn <strong class="text-amber-600">🥇 Gold (+3 pts)</strong>, <strong class="text-slate-700">🥈 Silver (+2 pts)</strong>, and <strong class="text-amber-800">🥉 Bronze (+1 pt)</strong> medals for exclusive term end rewards!
+                    </p>
+                </div>
+                
+                <div class="relative z-10 flex items-center gap-4 bg-white/80 border border-slate-200 p-4 rounded-2xl shrink-0 shadow-sm backdrop-blur-md">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-rose-500 flex items-center justify-center text-2xl shadow-md shadow-rose-500/10">
+                        🎁
+                    </div>
+                    <div>
+                        <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Term Rewards</div>
+                        <div class="text-sm font-black text-slate-900">Gold, Silver & Bronze Gifts</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Class Roster</div>
+                        <div class="text-2xl font-black text-slate-900 mt-1">36 <span class="text-xs font-semibold text-slate-400">Students</span></div>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-users text-sm"></i>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Submissions</div>
+                        <div id="statTotalSubmissions" class="text-2xl font-black text-emerald-600 mt-1">0</div>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-circle-check text-sm"></i>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Podium Stars</div>
+                        <div id="statPodiumWinners" class="text-2xl font-black text-amber-600 mt-1">0</div>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-trophy text-sm"></i>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Completion</div>
+                        <div id="statCompletionRate" class="text-2xl font-black text-indigo-600 mt-1">0%</div>
+                    </div>
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-200 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-bolt text-sm"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Controls -->
+            <div class="glass-card p-4 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" id="studentSearchInput" onkeyup="filterStudentTable()" placeholder="Find student name..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="openAnalysisModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie"></i> Submission Analysis
+                    </button>
+                    <button onclick="downloadExcel()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-extrabold rounded-xl shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-excel"></i> Download Excel
+                    </button>
+                    <button onclick="generatePdfReport()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold rounded-xl shadow-md shadow-indigo-600/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Public Matrix Table -->
+            <div class="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-900 text-white uppercase tracking-wider text-[10px] font-extrabold">
+                                <th class="py-3.5 px-3 text-center w-8">#</th>
+                                <th class="py-3.5 px-4 min-w-[180px]">Student Name</th>
+                                <th class="py-3.5 px-3 text-center min-w-[110px]">Medal Points</th>
+                                <!-- 10 SPs -->
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100 border-l border-teal-700">SP1</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP2</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP3</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP4</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP5</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP6</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP7</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP8</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP9</th>
+                                <th class="py-2.5 px-1 text-center bg-teal-800 text-teal-100">SP10</th>
+                                <!-- 5 DPPs -->
+                                <th class="py-2.5 px-1 text-center bg-indigo-900 text-indigo-100 border-l border-indigo-800">DPP1</th>
+                                <th class="py-2.5 px-1 text-center bg-indigo-900 text-indigo-100">DPP2</th>
+                                <th class="py-2.5 px-1 text-center bg-indigo-900 text-indigo-100">DPP3</th>
+                                <th class="py-2.5 px-1 text-center bg-indigo-900 text-indigo-100">DPP4</th>
+                                <th class="py-2.5 px-1 text-center bg-indigo-900 text-indigo-100">DPP5</th>
+                                <th class="py-3.5 px-3 text-center min-w-[90px]">Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentReportTableBody" class="divide-y divide-slate-200 font-semibold text-slate-700"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEACHER CONTROL PANEL -->
+        <div id="teacherPortalView" class="space-y-6 hidden">
+
+            <div class="glass-card p-6 rounded-3xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4 border-l-4 border-l-rose-500">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-rose-50 text-rose-700 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider mb-2 border border-rose-200">
+                        <i class="fa-solid fa-user-shield"></i> Teacher Control Panel Active
+                    </div>
+                    <h2 class="text-xl font-black text-slate-900">Sunil Vodela (PGT Chemistry)</h2>
+                    <p class="text-slate-500 text-xs">Manage submissions, import WhatsApp chat lists, analyze submitters, and send reminders.</p>
+                </div>
+                
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="openWhatsAppModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black rounded-xl transition shadow-md shadow-emerald-600/20 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Paste WhatsApp List
+                    </button>
+                    <button onclick="openAnalysisModal()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-black rounded-xl transition shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-sm"></i> Analysis
+                    </button>
+                    <button onclick="downloadExcel()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-extrabold rounded-xl shadow-md transition flex items-center gap-2">
+                        <i class="fa-solid fa-file-excel"></i> Excel
+                    </button>
+                    <button onclick="generatePdfReport()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition border border-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-file-pdf text-indigo-600"></i> PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Paper Selection Checklist Buttons -->
+            <div class="glass-card p-5 rounded-3xl space-y-4">
+                <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-600"></i> Select Paper to Open Checklist & Assign Ranks:
+                </h3>
+                
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-[10px] font-black text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-lg uppercase">10 Core SPs:</span>
+                    <button onclick="openPaperModal('sp', 0)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 1</button>
+                    <button onclick="openPaperModal('sp', 1)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 2</button>
+                    <button onclick="openPaperModal('sp', 2)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 3</button>
+                    <button onclick="openPaperModal('sp', 3)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 4</button>
+                    <button onclick="openPaperModal('sp', 4)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 5</button>
+                    <button onclick="openPaperModal('sp', 5)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 6</button>
+                    <button onclick="openPaperModal('sp', 6)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 7</button>
+                    <button onclick="openPaperModal('sp', 7)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 8</button>
+                    <button onclick="openPaperModal('sp', 8)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 9</button>
+                    <button onclick="openPaperModal('sp', 9)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-sm transition">SP 10</button>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+                    <span class="text-[10px] font-black text-indigo-800 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-lg uppercase">5 DPPs:</span>
+                    <button onclick="openPaperModal('dpp', 0)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm transition">DPP 1</button>
+                    <button onclick="openPaperModal('dpp', 1)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm transition">DPP 2</button>
+                    <button onclick="openPaperModal('dpp', 2)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm transition">DPP 3</button>
+                    <button onclick="openPaperModal('dpp', 3)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm transition">DPP 4</button>
+                    <button onclick="openPaperModal('dpp', 4)" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm transition">DPP 5</button>
+                </div>
+            </div>
+
+            <!-- Search & Controls -->
+            <div class="glass-card p-4 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400 text-xs"></i>
+                    <input type="text" id="teacherSearchInput" onkeyup="filterTeacherTable()" placeholder="Search student or phone..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500">
+                </div>
+
+                <button onclick="resetAllData()" class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-extrabold rounded-xl transition border border-rose-200">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Factory Reset Class Data
+                </button>
+            </div>
+
+            <!-- Master Student List & Parent Reminders Table -->
+            <div class="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-900 text-white uppercase tracking-wider text-[10px] font-extrabold">
+                                <th class="py-3.5 px-3 text-center w-8">#</th>
+                                <th class="py-3.5 px-4 min-w-[180px]">Student Name (Click to Edit)</th>
+                                <th class="py-3.5 px-4 min-w-[140px]">Parent Contact</th>
+                                <th class="py-3.5 px-3 text-center font-extrabold text-teal-300">Total Progress</th>
+                                <th class="py-3.5 px-3 text-center min-w-[140px]">Parent WhatsApp Link</th>
+                            </tr>
+                        </thead>
+                        <tbody id="teacherTableBody" class="divide-y divide-slate-200 font-semibold text-slate-700"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ANALYSIS MODAL WINDOW -->
+    <div id="analysisModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[90vh] border border-slate-200">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-black flex items-center gap-2 text-white"><i class="fa-solid fa-chart-pie text-emerald-400"></i> Submission Analysis & Active Submitters</h3>
+                    <p class="text-slate-300 text-[11px]">Breakdown of students who have completed papers</p>
+                </div>
+                <button onclick="closeAnalysisModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-4">
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl text-center">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase">Active Submitters</div>
+                        <div id="analysisActiveCount" class="text-xl font-black text-emerald-600 mt-0.5">0</div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl text-center">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase">Yet to Submit</div>
+                        <div id="analysisPendingCount" class="text-xl font-black text-rose-500 mt-0.5">0</div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl text-center">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase">Total Submissions</div>
+                        <div id="analysisTotalSubmissions" class="text-xl font-black text-indigo-600 mt-0.5">0</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-black text-slate-800 uppercase mb-2">📋 Students with Submissions:</h4>
+                    <div class="border border-slate-200 rounded-2xl overflow-hidden max-h-60 overflow-y-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-100 text-slate-600 text-[10px] uppercase font-bold sticky top-0">
+                                <tr>
+                                    <th class="py-2.5 px-3">#</th>
+                                    <th class="py-2.5 px-3">Student Name</th>
+                                    <th class="py-2.5 px-3 text-center">Completed Papers</th>
+                                    <th class="py-2.5 px-3 text-center">Medal Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="analysisTableBody" class="divide-y divide-slate-100 font-semibold"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end">
+                <button onclick="closeAnalysisModal()" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl shadow-md transition">Close Analysis</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHATSAPP LIST PASTE MODAL -->
+    <div id="whatsAppModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-xl w-full overflow-hidden flex flex-col border border-slate-200">
+            <div class="bg-emerald-700 text-white px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-black flex items-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> Paste WhatsApp Student List</h3>
+                    <p class="text-emerald-100 text-[11px]">Paste your chat list with paper header (e.g., "Sample paper 3 completed by...")</p>
+                </div>
+                <button onclick="closeWhatsAppModal()" class="w-8 h-8 rounded-full bg-emerald-800 hover:bg-emerald-900 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div class="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl text-[11px] text-emerald-950 font-medium">
+                    💡 <strong>Example format supported:</strong><br>
+                    <code>Sample paper 3 completed by<br>1. Shruti<br>2. M.a.sami<br>3. Emmanual...</code>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-wider mb-1">Paste WhatsApp Text Below</label>
+                    <textarea id="whatsappChatText" rows="7" placeholder="Sample paper 3 completed by&#10;1. Shruti&#10;2. M.a.sami&#10;3. Emmanual&#10;..." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+                </div>
+
+                <div id="parseResultSummary" class="hidden text-xs font-bold p-3 rounded-xl bg-slate-100 border border-slate-200"></div>
+            </div>
+
+            <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end gap-2">
+                <button onclick="closeWhatsAppModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition">Cancel</button>
+                <button onclick="processWhatsAppChatLog()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition">Process & Update Table</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT STUDENT PROFILE MODAL -->
+    <div id="editStudentModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col border border-slate-200">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-black flex items-center gap-2 text-white"><i class="fa-solid fa-user-pen text-amber-400"></i> Edit Student Record</h3>
+                    <p class="text-slate-300 text-[11px]">Update student name, phone numbers, or submission checkmarks</p>
+                </div>
+                <button onclick="closeEditStudentModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <input type="hidden" id="editStudentId">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-wider mb-1">Student Full Name</label>
+                    <input type="text" id="editStudentName" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-wider mb-1">Parent Phone Numbers (Comma Separated)</label>
+                    <input type="text" id="editStudentPhones" placeholder="e.g. 7989098552, 8977113815" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div class="pt-2">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-wider mb-2">Paper Submissions Checklist</label>
+                    <div id="editPaperCheckboxes" class="grid grid-cols-5 gap-2 max-h-40 overflow-y-auto p-3 bg-slate-50 border border-slate-200 rounded-xl text-[10px]"></div>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end gap-2">
+                <button onclick="closeEditStudentModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs rounded-xl transition">Cancel</button>
+                <button onclick="saveStudentProfile()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKLIST & PODIUM RANKING MODAL -->
+    <div id="paperModal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[90vh] border border-slate-200">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <div>
+                    <h3 id="modalTitle" class="text-sm font-black text-white">Mark Submissions for SP1</h3>
+                    <p class="text-slate-300 text-[11px]">Click 🥇 1st, 🥈 2nd, 🥉 3rd rank buttons or check off general submissions</p>
+                </div>
+                <button onclick="closePaperModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="p-4 overflow-y-auto flex-grow space-y-2" id="modalStudentList"></div>
+
+            <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end">
+                <button onclick="closePaperModal()" class="px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-xl shadow-md transition">Save & Sync</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-8 bg-white">
+        <p>© 2026 Kendriya Vidyalaya DRDO Kanchanbagh • Class XII Chemistry Department</p>
+    </footer>
+
+    <script>
+        const TEACHER_PIN = "Su1011nil";
+
+        const initialStudents = [
+            { id: 1, name: "GAJULA PRANAVI", phones: ["7207594651"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 2, name: "ANUJ GOSWAMI", phones: ["9490969702"], sp: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 3, name: "N SAI KAUSHIKA", phones: ["9652442553"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 4, name: "KARNATI AKSHITHA", phones: ["9848456530"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 5, name: "D DEEKSHA", phones: ["9490956818"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 6, name: "AKRITI TIWARI", phones: ["7989098552", "8977113815"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 7, name: "MEDIKONDA MADHAV", phones: ["7893984901"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 8, name: "RAYALA SIDDESH", phones: ["9392693713"], sp: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 9, name: "A HARSHINI", phones: ["8500497402"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 10, name: "B SHASHANK", phones: ["9502737537"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 11, name: "DAKSH MISHRA", phones: ["7396951907"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 12, name: "SHAIK THANHAR", phones: ["9299153608"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 13, name: "MD. ABDUL RAHMAN", phones: ["9154436960"], sp: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 14, name: "MIR YASSER ALI", phones: ["9379457294"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 15, name: "THAKUR YASH SINGH", phones: ["9948190043"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 16, name: "VAIBHAV MISHRA", phones: ["9412071477"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 17, name: "SANJANA SAHOO", phones: ["9437108249"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 18, name: "NAYARAM VASANT MONIKA", phones: ["9949346789"], sp: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 19, name: "NEELAM SRIVALLABHA", phones: ["9951202430"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 20, name: "BAISIL", phones: ["9996514741"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 21, name: "JARUPLAVATH HEMANTHARI", phones: ["8919095934"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 22, name: "BINOD GURUNG", phones: ["7063404843"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 23, name: "SYED ABUL QAIR", phones: ["9392438722"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 24, name: "MINHA SAMARTH JAISWAL", phones: ["9177427911"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 25, name: "ADITI BAGHEL", phones: ["7999811680"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 26, name: "AKANKSHA TANWAR", phones: ["9149898529"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 27, name: "SHRUTI DAS", phones: ["8074339430"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 28, name: "AYMAAN ROUNAQ ALI KHAN", phones: ["9848391663"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 29, name: "MOHAMMED ABDUL SAMI", phones: ["9908160947"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 30, name: "EMMANUEL ANTONY", phones: ["7889403848"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 31, name: "KORLEPARA RAJSRI GUPTA", phones: ["7735266748"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 32, name: "ADARSH RAJ SINGH", phones: ["6387252426"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 33, name: "ASHISH KUJUR", phones: ["9770207807"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 34, name: "ASTHA VILAS VAIRAGADE", phones: ["9409632446"], sp: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 35, name: "KRISHNENDU P", phones: ["9747345587"], sp: [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] },
+            { id: 36, name: "HARSHIT", phones: ["9971748020"], sp: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dpp: [0, 0, 0, 0, 0] }
+        ];
+
+        let students = JSON.parse(localStorage.getItem('kv_chem_v5_podium')) || JSON.parse(JSON.stringify(initialStudents));
+        let podiums = JSON.parse(localStorage.getItem('kv_chem_podium_map')) || {};
+
+        let activeView = 'student';
+        let activePaperType = 'sp';
+        let activePaperIdx = 0;
+
+        function switchView(target) {
+            if (target === 'teacher' && activeView !== 'teacher') {
+                let pin = prompt("Enter Teacher Security PIN to access Entry Controls:", "");
+                if (pin !== TEACHER_PIN) {
+                    alert("Incorrect Security PIN. Entry access denied.");
+                    return;
+                }
+            }
+
+            activeView = target;
+            if (activeView === 'student') {
+                document.getElementById('studentPortalView').classList.remove('hidden');
+                document.getElementById('teacherPortalView').classList.add('hidden');
+                
+                document.getElementById('btnStudentView').className = "px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-emerald-600 text-white shadow-md shadow-emerald-600/20";
+                document.getElementById('btnTeacherView').className = "px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 text-slate-600 hover:text-slate-900";
+                renderStudentReport();
+            } else {
+                document.getElementById('studentPortalView').classList.add('hidden');
+                document.getElementById('teacherPortalView').classList.remove('hidden');
+
+                document.getElementById('btnStudentView').className = "px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 text-slate-600 hover:text-slate-900";
+                document.getElementById('btnTeacherView').className = "px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-rose-600 text-white shadow-md shadow-rose-600/20";
+                renderTeacherTable();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('kv_chem_v5_podium', JSON.stringify(students));
+            localStorage.setItem('kv_chem_podium_map', JSON.stringify(podiums));
+            if (activeView === 'student') renderStudentReport();
+            else renderTeacherTable();
+        }
+
+        /* EXCEL / CSV DOWNLOAD WITH ✅ Done / ❌ Pending */
+        function downloadExcel() {
+            let csv = [];
+            let headers = ["#", "Student Name", "Medals", "SP1", "SP2", "SP3", "SP4", "SP5", "SP6", "SP7", "SP8", "SP9", "SP10", "DPP1", "DPP2", "DPP3", "DPP4", "DPP5", "Total", "Percentage"];
+            csv.push(headers.join(","));
+
+            students.forEach(st => {
+                let spDone = st.sp.reduce((a, b) => a + b, 0);
+                let dppDone = st.dpp.reduce((a, b) => a + b, 0);
+                let tot = spDone + dppDone;
+                let pct = ((tot / 15) * 100).toFixed(0) + '%';
+
+                let f = 0, s = 0, t = 0;
+                for (let k in podiums) {
+                    if (podiums[k].first === st.id) f++;
+                    if (podiums[k].second === st.id) s++;
+                    if (podiums[k].third === st.id) t++;
+                }
+                let medalStr = `1st:${f} 2nd:${s} 3rd:${t}`;
+
+                let row = [st.id, `"${st.name}"`, `"${medalStr}"`];
+                
+                // Add ✅ Done or ❌ Pending for SP papers
+                st.sp.forEach(v => row.push(v === 1 ? '"✅ Done"' : '"❌ Pending"'));
+                
+                // Add ✅ Done or ❌ Pending for DPP papers
+                st.dpp.forEach(v => row.push(v === 1 ? '"✅ Done"' : '"❌ Pending"'));
+                
+                row.push(tot);
+                row.push(`"${pct}"`);
+                csv.push(row.join(","));
+            });
+
+            let csvBlob = new Blob(["\uFEFF" + csv.join("\n")], { type: 'text/csv;charset=utf-8;' });
+            let url = URL.createObjectURL(csvBlob);
+            let a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'KV_Kanchanbagh_Class_XII_Chemistry_Submissions.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        /* ANALYSIS MODAL LOGIC */
+        function openAnalysisModal() {
+            let activeCount = 0;
+            let totalSubs = 0;
+            let tbody = document.getElementById('analysisTableBody');
+            tbody.innerHTML = '';
+
+            let submittedStudents = [];
+
+            students.forEach(st => {
+                let spDone = st.sp.reduce((a, b) => a + b, 0);
+                let dppDone = st.dpp.reduce((a, b) => a + b, 0);
+                let tot = spDone + dppDone;
+                totalSubs += tot;
+
+                if (tot > 0) {
+                    activeCount++;
+                    submittedStudents.push({ st, tot });
+                }
+            });
+
+            document.getElementById('analysisActiveCount').innerText = activeCount;
+            document.getElementById('analysisPendingCount').innerText = 36 - activeCount;
+            document.getElementById('analysisTotalSubmissions').innerText = totalSubs;
+
+            if (submittedStudents.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-slate-400">No submissions recorded yet.</td></tr>`;
+            } else {
+                submittedStudents.forEach((item, index) => {
+                    let st = item.st;
+                    let firstCount = 0, secondCount = 0, thirdCount = 0;
+                    for (let key in podiums) {
+                        if (podiums[key].first === st.id) firstCount++;
+                        if (podiums[key].second === st.id) secondCount++;
+                        if (podiums[key].third === st.id) thirdCount++;
+                    }
+                    let totalPoints = (firstCount * 3) + (secondCount * 2) + (thirdCount * 1);
+
+                    let tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+                    tr.innerHTML = `
+                        <td class="py-2.5 px-3 text-slate-400 font-bold">${index + 1}</td>
+                        <td class="py-2.5 px-3 font-bold text-slate-900">${st.name}</td>
+                        <td class="py-2.5 px-3 text-center font-black text-emerald-600">${item.tot} / 15</td>
+                        <td class="py-2.5 px-3 text-center font-black text-amber-600">${totalPoints} pts</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            document.getElementById('analysisModal').classList.remove('hidden');
+        }
+
+        function closeAnalysisModal() {
+            document.getElementById('analysisModal').classList.add('hidden');
+        }
+
+        /* WHATSAPP LIST & CHAT PARSER */
+        function openWhatsAppModal() {
+            document.getElementById('whatsappChatText').value = '';
+            document.getElementById('parseResultSummary').classList.add('hidden');
+            document.getElementById('whatsAppModal').classList.remove('hidden');
+        }
+
+        function closeWhatsAppModal() {
+            document.getElementById('whatsAppModal').classList.add('hidden');
+        }
+
+        function processWhatsAppChatLog() {
+            let rawText = document.getElementById('whatsappChatText').value;
+            if (!rawText.trim()) {
+                alert("Please paste WhatsApp list first.");
+                return;
+            }
+
+            let lines = rawText.split('\n');
+            let updatedCount = 0;
+            let detectedUpdates = [];
+            let activePaperIndex = null;
+            let activePaperName = "";
+
+            let upperAll = rawText.toUpperCase();
+            let globalSpMatch = upperAll.match(/(?:SAMPLE\s*PAPER|SP)\s*([1-9]|10)\b/);
+            let globalDppMatch = upperAll.match(/(?:DAILY\s*PRACTICE\s*PAPER|DPP)\s*([1-5])\b/);
+
+            if (globalSpMatch) {
+                let num = parseInt(globalSpMatch[1]);
+                activePaperIndex = { type: 'sp', index: num - 1 };
+                activePaperName = `SP${num}`;
+            } else if (globalDppMatch) {
+                let num = parseInt(globalDppMatch[1]);
+                activePaperIndex = { type: 'dpp', index: num - 1 };
+                activePaperName = `DPP${num}`;
+            }
+
+            lines.forEach(line => {
+                let cleanLine = line.trim();
+                if (!cleanLine) return;
+
+                let upperLine = cleanLine.toUpperCase();
+                let lineSp = upperLine.match(/(?:SAMPLE\s*PAPER|SP)\s*([1-9]|10)\b/);
+                let lineDpp = upperLine.match(/(?:DAILY\s*PRACTICE\s*PAPER|DPP)\s*([1-5])\b/);
+
+                if (lineSp) {
+                    let num = parseInt(lineSp[1]);
+                    activePaperIndex = { type: 'sp', index: num - 1 };
+                    activePaperName = `SP${num}`;
+                    return;
+                }
+                if (lineDpp) {
+                    let num = parseInt(lineDpp[1]);
+                    activePaperIndex = { type: 'dpp', index: num - 1 };
+                    activePaperName = `DPP${num}`;
+                    return;
+                }
+
+                let nameQuery = cleanLine.replace(/^[\d\-\.\)]+\s*/, '').trim().toUpperCase();
+                if (nameQuery.length < 2) return;
+
+                if (!activePaperIndex) {
+                    activePaperIndex = { type: 'sp', index: 2 }; // Default SP3
+                    activePaperName = `SP3`;
+                }
+
+                let normQuery = nameQuery.replace(/[\.\s]/g, '');
+
+                students.forEach(st => {
+                    let stName = st.name.toUpperCase();
+                    let normStName = stName.replace(/[\.\s]/g, '');
+                    let isMatch = false;
+
+                    if (normStName.includes(normQuery) || normQuery.includes(normStName)) {
+                        isMatch = true;
+                    } else {
+                        let queryTokens = nameQuery.split(/[\s\.]+/).filter(t => t.length > 1);
+                        let matchedTokens = queryTokens.filter(t => normStName.includes(t.replace(/[\.\s]/g, '')));
+                        if (queryTokens.length > 0 && matchedTokens.length >= Math.min(1, queryTokens.length)) {
+                            isMatch = true;
+                        }
+                    }
+
+                    if (isMatch) {
+                        let type = activePaperIndex.type;
+                        let idx = activePaperIndex.index;
+                        if (st[type][idx] !== 1) {
+                            st[type][idx] = 1;
+                            updatedCount++;
+                            detectedUpdates.push(`${st.name} ➔ ${activePaperName}`);
+                        }
+                    }
+                });
+            });
+
+            let summaryBox = document.getElementById('parseResultSummary');
+            summaryBox.classList.remove('hidden');
+
+            if (updatedCount > 0) {
+                summaryBox.className = "text-xs font-bold p-3 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-300";
+                summaryBox.innerHTML = `✅ Successfully updated <strong>${updatedCount} student(s)</strong> for <strong>${activePaperName}</strong>:<br>• ` + detectedUpdates.join('<br>• ');
+                saveData();
+            } else {
+                summaryBox.className = "text-xs font-bold p-3 rounded-xl bg-amber-50 text-amber-800 border border-amber-300";
+                summaryBox.innerHTML = `⚠️ No matching students found. Please verify roster spelling.`;
+            }
+        }
+
+        /* EDIT STUDENT PROFILE LOGIC */
+        function openEditStudentModal(studentId) {
+            let st = students.find(s => s.id === studentId);
+            if (!st) return;
+
+            document.getElementById('editStudentId').value = st.id;
+            document.getElementById('editStudentName').value = st.name;
+            document.getElementById('editStudentPhones').value = st.phones.join(', ');
+
+            let boxContainer = document.getElementById('editPaperCheckboxes');
+            boxContainer.innerHTML = '';
+
+            st.sp.forEach((v, i) => {
+                boxContainer.innerHTML += `
+                    <label class="flex items-center gap-1 font-bold text-emerald-800">
+                        <input type="checkbox" id="chk_sp_${i}" ${v === 1 ? 'checked' : ''} class="rounded text-emerald-600"> SP${i+1}
+                    </label>`;
+            });
+
+            st.dpp.forEach((v, i) => {
+                boxContainer.innerHTML += `
+                    <label class="flex items-center gap-1 font-bold text-indigo-800">
+                        <input type="checkbox" id="chk_dpp_${i}" ${v === 1 ? 'checked' : ''} class="rounded text-indigo-600"> DPP${i+1}
+                    </label>`;
+            });
+
+            document.getElementById('editStudentModal').classList.remove('hidden');
+        }
+
+        function closeEditStudentModal() {
+            document.getElementById('editStudentModal').classList.add('hidden');
+        }
+
+        function saveStudentProfile() {
+            let stId = parseInt(document.getElementById('editStudentId').value);
+            let st = students.find(s => s.id === stId);
+            if (!st) return;
+
+            st.name = document.getElementById('editStudentName').value.trim().toUpperCase();
+            st.phones = document.getElementById('editStudentPhones').value.split(',').map(p => p.trim()).filter(p => p.length > 0);
+
+            st.sp.forEach((_, i) => { st.sp[i] = document.getElementById(`chk_sp_${i}`).checked ? 1 : 0; });
+            st.dpp.forEach((_, i) => { st.dpp[i] = document.getElementById(`chk_dpp_${i}`).checked ? 1 : 0; });
+
+            closeEditStudentModal();
+            saveData();
+        }
+
+        /* PAPER CHECKLIST & PODIUM MODAL */
+        function openPaperModal(type, idx) {
+            activePaperType = type;
+            activePaperIdx = idx;
+            document.getElementById('modalTitle').innerText = `Mark Submissions for ${type === 'sp' ? 'Sample Paper ' + (idx + 1) : 'DPP ' + (idx + 1)}`;
+            renderModalList();
+            document.getElementById('paperModal').classList.remove('hidden');
+        }
+
+        function closePaperModal() {
+            document.getElementById('paperModal').classList.add('hidden');
+            saveData();
+        }
+
+        function setPodium(studentId, rank) {
+            let pKey = `${activePaperType}_${activePaperIdx}`;
+            if (!podiums[pKey]) podiums[pKey] = { first: null, second: null, third: null };
+
+            if (rank === 1) podiums[pKey].first = podiums[pKey].first === studentId ? null : studentId;
+            if (rank === 2) podiums[pKey].second = podiums[pKey].second === studentId ? null : studentId;
+            if (rank === 3) podiums[pKey].third = podiums[pKey].third === studentId ? null : studentId;
+
+            let st = students.find(s => s.id === studentId);
+            if (st && rank) st[activePaperType][activePaperIdx] = 1;
+            renderModalList();
+        }
+
+        function toggleModalCheck(studentId) {
+            let st = students.find(s => s.id === studentId);
+            if (!st) return;
+            st[activePaperType][activePaperIdx] = st[activePaperType][activePaperIdx] === 1 ? 0 : 1;
+            renderModalList();
+        }
+
+        function renderModalList() {
+            let pKey = `${activePaperType}_${activePaperIdx}`;
+            let pod = podiums[pKey] || { first: null, second: null, third: null };
+            const listContainer = document.getElementById('modalStudentList');
+            listContainer.innerHTML = '';
+
+            students.forEach(st => {
+                let isSubmitted = st[activePaperType][activePaperIdx] === 1;
+                let is1st = pod.first === st.id, is2nd = pod.second === st.id, is3rd = pod.third === st.id;
+
+                let row = document.createElement('div');
+                row.className = "flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200 hover:bg-slate-100 transition";
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" ${isSubmitted ? 'checked' : ''} onchange="toggleModalCheck(${st.id})" class="w-4 h-4 text-emerald-600 rounded cursor-pointer">
+                        <span class="font-bold text-xs text-slate-800">${st.id}. ${st.name}</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="setPodium(${st.id}, 1)" class="px-2.5 py-1 rounded-xl text-[10px] font-black transition ${is1st ? 'bg-amber-400 text-slate-900 shadow-md' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">🥇 1st</button>
+                        <button onclick="setPodium(${st.id}, 2)" class="px-2.5 py-1 rounded-xl text-[10px] font-black transition ${is2nd ? 'bg-slate-300 text-slate-900 shadow-md' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">🥈 2nd</button>
+                        <button onclick="setPodium(${st.id}, 3)" class="px-2.5 py-1 rounded-xl text-[10px] font-black transition ${is3rd ? 'bg-amber-700 text-white shadow-md' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}">🥉 3rd</button>
+                    </div>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+
+        /* RENDERING VIEWS */
+        function renderStudentReport() {
+            const tbody = document.getElementById('studentReportTableBody');
+            tbody.innerHTML = '';
+            let totalCompletedSum = 0, podiumWinnersSet = new Set();
+
+            students.forEach(student => {
+                let spDone = student.sp.reduce((a, b) => a + b, 0);
+                let dppDone = student.dpp.reduce((a, b) => a + b, 0);
+                let totalCompleted = spDone + dppDone;
+                totalCompletedSum += totalCompleted;
+
+                let firstCount = 0, secondCount = 0, thirdCount = 0;
+                for (let key in podiums) {
+                    if (podiums[key].first === student.id) firstCount++;
+                    if (podiums[key].second === student.id) secondCount++;
+                    if (podiums[key].third === student.id) thirdCount++;
+                }
+                if (firstCount > 0 || secondCount > 0 || thirdCount > 0) podiumWinnersSet.add(student.id);
+
+                let totalPoints = (firstCount * 3) + (secondCount * 2) + (thirdCount * 1);
+                let medalsHtml = '';
+                if (firstCount > 0) medalsHtml += `<span class="bg-amber-100 text-amber-800 font-black px-1.5 py-0.5 rounded-lg text-[9px] mr-1 podium-glow">🥇x${firstCount}</span>`;
+                if (secondCount > 0) medalsHtml += `<span class="bg-slate-200 text-slate-800 font-black px-1.5 py-0.5 rounded-lg text-[9px] mr-1">🥈x${secondCount}</span>`;
+                if (thirdCount > 0) medalsHtml += `<span class="bg-amber-800/10 text-amber-900 font-black px-1.5 py-0.5 rounded-lg text-[9px] mr-1">🥉x${thirdCount}</span>`;
+                if (!medalsHtml) medalsHtml = `<span class="text-slate-400 text-[10px] font-bold">0 pts</span>`;
+                else medalsHtml += `<span class="text-[10px] font-black text-emerald-700">(${totalPoints})</span>`;
+
+                let spCells = student.sp.map((status, pIdx) => {
+                    let isFirst = podiums[`sp_${pIdx}`]?.first === student.id;
+                    let bg = status === 1 ? (isFirst ? 'bg-amber-400 text-slate-900 font-black' : 'bg-emerald-500 text-white font-black') : 'bg-rose-50 text-rose-500 border border-rose-200';
+                    return `<td class="text-center p-1 border-l border-slate-200"><span class="inline-block w-5 h-5 leading-5 rounded-md ${bg} text-[10px]">${status === 1 ? (isFirst ? '🥇' : '✓') : '✕'}</span></td>`;
+                }).join('');
+
+                let dppCells = student.dpp.map((status, pIdx) => {
+                    let isFirst = podiums[`dpp_${pIdx}`]?.first === student.id;
+                    let bg = status === 1 ? (isFirst ? 'bg-amber-400 text-slate-900 font-black' : 'bg-indigo-600 text-white font-black') : 'bg-rose-50 text-rose-500 border border-rose-200';
+                    return `<td class="text-center p-1 border-l border-slate-200"><span class="inline-block w-5 h-5 leading-5 rounded-md ${bg} text-[10px]">${status === 1 ? (isFirst ? '🥇' : '✓') : '✕'}</span></td>`;
+                }).join('');
+
+                let tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+                tr.innerHTML = `
+                    <td class="py-3 px-3 text-center text-slate-400 font-bold">${student.id}</td>
+                    <td class="py-3 px-4 font-bold text-slate-900">${student.name}</td>
+                    <td class="py-3 px-3 text-center">${medalsHtml}</td>
+                    ${spCells}
+                    ${dppCells}
+                    <td class="py-3 px-3 text-center font-black text-emerald-600">${totalCompleted} / 15</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('statTotalSubmissions').innerText = totalCompletedSum;
+            document.getElementById('statPodiumWinners').innerText = podiumWinnersSet.size;
+            document.getElementById('statCompletionRate').innerText = `${((totalCompletedSum / (36 * 15)) * 100).toFixed(1)}%`;
+        }
+
+        function renderTeacherTable() {
+            const tbody = document.getElementById('teacherTableBody');
+            tbody.innerHTML = '';
+
+            students.forEach(student => {
+                let totalCompleted = student.sp.reduce((a, b) => a + b, 0) + student.dpp.reduce((a, b) => a + b, 0);
+                let pendingList = [];
+                student.sp.forEach((v, i) => { if (v === 0) pendingList.push(`SP${i + 1}`); });
+                student.dpp.forEach((v, i) => { if (v === 0) pendingList.push(`DPP${i + 1}`); });
+
+                let waHtml = '';
+                if (pendingList.length > 0) {
+                    let msg = `Dear Parent, your ward ${student.name} has pending Chemistry papers (${pendingList.slice(0, 3).join(', ')}...). Kindly ensure submission. - KV Kanchanbagh`;
+                    let encoded = encodeURIComponent(msg);
+                    student.phones.forEach((ph, pIdx) => {
+                        waHtml += `<a href="https://wa.me/91${ph}?text=${encoded}" target="_blank" class="inline-flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 text-[10px] font-extrabold px-2.5 py-1 rounded-xl transition mr-1 my-0.5"><i class="fa-brands fa-whatsapp"></i> ${student.phones.length > 1 ? 'P' + (pIdx + 1) : 'Remind'}</a>`;
+                    });
+                } else {
+                    waHtml = `<span class="text-emerald-600 font-extrabold text-[10px]"><i class="fa-solid fa-check-double"></i> Complete</span>`;
+                }
+
+                let tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+                tr.innerHTML = `
+                    <td class="py-3 px-3 text-center text-slate-400 font-bold">${student.id}</td>
+                    <td class="py-3 px-4 font-black text-slate-900 cursor-pointer hover:text-emerald-600 transition flex items-center gap-2" onclick="openEditStudentModal(${student.id})">
+                        ${student.name} <i class="fa-solid fa-pen-to-square text-[10px] text-slate-400"></i>
+                    </td>
+                    <td class="py-3 px-4 text-slate-600 font-bold">${student.phones.join(', ')}</td>
+                    <td class="py-3 px-3 text-center font-black text-emerald-600">${totalCompleted} / 15</td>
+                    <td class="py-3 px-3 text-center">${waHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterStudentTable() {
+            let input = document.getElementById("studentSearchInput").value.toLowerCase();
+            let rows = document.getElementById("studentReportTableBody").getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) rows[i].style.display = rows[i].innerText.toLowerCase().includes(input) ? "" : "none";
+        }
+
+        function filterTeacherTable() {
+            let input = document.getElementById("teacherSearchInput").value.toLowerCase();
+            let rows = document.getElementById("teacherTableBody").getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) rows[i].style.display = rows[i].innerText.toLowerCase().includes(input) ? "" : "none";
+        }
+
+        function resetAllData() {
+            if (confirm("Factory reset all student submission and podium records to default?")) {
+                localStorage.removeItem('kv_chem_v5_podium');
+                localStorage.removeItem('kv_chem_podium_map');
+                students = JSON.parse(JSON.stringify(initialStudents));
+                podiums = {};
+                saveData();
+            }
+        }
+
+        /* PDF GENERATOR */
+        function generatePdfReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+            doc.setFillColor(15, 23, 42);
+            doc.rect(0, 0, 297, 24, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.text("KENDRIYA VIDYALAYA DRDO KANCHANBAGH", 12, 11);
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(16, 185, 129);
+            doc.text("CLASS XII CHEMISTRY • OFFICIAL ACADEMIC SUBMISSION & PODIUM REPORT", 12, 17);
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(8);
+            doc.text(`Generated: ${new Date().toLocaleString()}`, 230, 11);
+            doc.text("PGT Chemistry: Sunil Vodela", 230, 17);
+
+            let totalSubmissions = 0;
+            students.forEach(s => { totalSubmissions += s.sp.reduce((a, b) => a + b, 0) + s.dpp.reduce((a, b) => a + b, 0); });
+            let compRate = ((totalSubmissions / (36 * 15)) * 100).toFixed(1);
+
+            doc.setFillColor(241, 245, 249);
+            doc.rect(12, 28, 273, 12, 'F');
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text(`Class Strength: 36 Students`, 18, 35.5);
+            doc.text(`Total Submissions: ${totalSubmissions} / ${36 * 15}`, 85, 35.5);
+            doc.text(`Class Completion Rate: ${compRate}%`, 165, 35.5);
+            doc.text(`Target: 10 SPs + 5 DPPs`, 230, 35.5);
+
+            const tableHeaders = [["#", "Student Name", "Medals", "SP1", "SP2", "SP3", "SP4", "SP5", "SP6", "SP7", "SP8", "SP9", "SP10", "DP1", "DP2", "DP3", "DP4", "DP5", "Total", "%"]];
+            const tableData = students.map(st => {
+                let spDone = st.sp.reduce((a, b) => a + b, 0), dppDone = st.dpp.reduce((a, b) => a + b, 0);
+                let tot = spDone + dppDone, pct = ((tot / 15) * 100).toFixed(0) + '%';
+                let f = 0, s = 0, t = 0;
+                for (let k in podiums) {
+                    if (podiums[k].first === st.id) f++;
+                    if (podiums[k].second === st.id) s++;
+                    if (podiums[k].third === st.id) t++;
+                }
+                let medalStr = '';
+                if (f > 0) medalStr += `1st:${f} `;
+                if (s > 0) medalStr += `2nd:${s} `;
+                if (t > 0) medalStr += `3rd:${t}`;
+                if (!medalStr) medalStr = '-';
+
+                let row = [st.id, st.name, medalStr];
+                st.sp.forEach(v => row.push(v === 1 ? 'Y' : '-'));
+                st.dpp.forEach(v => row.push(v === 1 ? 'Y' : '-'));
+                row.push(tot); row.push(pct);
+                return row;
+            });
+
+            doc.autoTable({
+                head: tableHeaders,
+                body: tableData,
+                startY: 44,
+                margin: { left: 12, right: 12 },
+                styles: { fontSize: 6.5, cellPadding: 1.2, alignment: 'center', valign: 'middle', lineColor: [226, 232, 240], lineWidth: 0.1 },
+                headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 6.5 },
+                columnStyles: {
+                    0: { cellWidth: 8 }, 1: { cellWidth: 42, alignment: 'left', fontStyle: 'bold' }, 2: { cellWidth: 22 },
+                    3: { cellWidth: 10 }, 4: { cellWidth: 10 }, 5: { cellWidth: 10 }, 6: { cellWidth: 10 }, 7: { cellWidth: 10 },
+                    8: { cellWidth: 10 }, 9: { cellWidth: 10 }, 10: { cellWidth: 10 }, 11: { cellWidth: 10 }, 12: { cellWidth: 10 },
+                    13: { cellWidth: 10 }, 14: { cellWidth: 10 }, 15: { cellWidth: 10 }, 16: { cellWidth: 10 }, 17: { cellWidth: 10 },
+                    18: { cellWidth: 12, fontStyle: 'bold' }, 19: { cellWidth: 13, fontStyle: 'bold' }
+                }
+            });
+
+            let finalY = doc.lastAutoTable.finalY + 10;
+            if (finalY > 190) { doc.addPage(); finalY = 20; }
+            doc.setDrawColor(203, 213, 225);
+            doc.line(210, finalY + 8, 280, finalY + 8);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text("Sunil Vodela (PGT Chemistry)", 215, finalY + 12);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 116, 139);
+            doc.text("KV DRDO Kanchanbagh Signature", 217, finalY + 16);
+
+            doc.save("KV_DRDO_Kanchanbagh_Class_XII_Chemistry_Report.pdf");
+        }
+
+        renderStudentReport();
+    </script>
+</body>
+</html>
